@@ -1,6 +1,7 @@
 import logging
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import os
+from options import HOME_OPTIONS 
 PORT = int(os.environ.get('PORT', 5000))
 
 # Enable logging
@@ -10,10 +11,14 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 TOKEN = '1334466133:AAETisdO6JU7nf-SKc3G5n3X2H-L8ClW1Uo'
 
+button_list=[]
 # Define a few command handlers. These usually take the two arguments update and
 # context. Error handlers also receive the raised TelegramError object in error.
 def start(update, context):
     """Send a message when the command /start is issued."""
+    reply_markup=InlineKeyboardMarkup(build_menu(HOME_OPTIONS,n_cols=1)) #n_cols = 1 is for single column and mutliple rows
+    bot.send_message(chat_id=update.message.chat_id, text='Choose from the following',reply_markup=reply_markup)
+
     update.message.reply_text('Hi!')
 
 def help(update, context):
