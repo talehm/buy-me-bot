@@ -3,7 +3,7 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import os
 from telebot import types
 
-from options import HOME_OPTIONS 
+from options import getHomeOptions 
 PORT = int(os.environ.get('PORT', 5000))
 
 # Enable logging
@@ -18,7 +18,7 @@ button_list=[]
 # context. Error handlers also receive the raised TelegramError object in error.
 def start(update, context):
     """Send a message when the command /start is issued."""
-    reply_markup=types.InlineKeyboardMarkup(build_menu(HOME_OPTIONS,n_cols=1)) #n_cols = 1 is for single column and mutliple rows
+    reply_markup=types.InlineKeyboardMarkup(build_menu(getHomeOptions,n_cols=1)) #n_cols = 1 is for single column and mutliple rows
     bot.send_message(chat_id=update.message.chat_id, text='Choose from the following',reply_markup=reply_markup)
 
     update.message.reply_text('Hi!')
